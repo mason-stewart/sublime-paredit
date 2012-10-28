@@ -1,0 +1,10 @@
+[
+  {
+    "id": "tools",
+    "children":
+    [
+      { "caption": "-" },
+      { "command": "toggle_setting", "args": {"setting": "paredit_enabled"}, "caption": "Paredit Mode", "checkbox": true }
+    ]
+  }
+]
