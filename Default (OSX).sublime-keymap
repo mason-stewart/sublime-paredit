@@ -1,19 +1,11 @@
 [
   // Paredit mode. An attempt to emulate the impecable taste of Emacs parentheses rules
-  // Make sure this is in your User Preferences:
-  //
-  // {
-  //  "paredit_enabled": true,
-  //  "auto_match_enabled": false
-  // }
-  //
 
-  // Auto-pair brackets
+  // ALWAYS Auto-pair brackets
   { "keys": ["("], "command": "insert_snippet", "args": {"contents": "($0)"}, "context":
     [
       { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-      { "key": "following_text", "operator": "regex_contains", "operand": "^(?:\t| |\\)|]|;|\\}|$)", "match_all": true }
+      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true }
     ]
   },
   { "keys": ["("], "command": "insert_snippet", "args": {"contents": "(${0:$SELECTION})"}, "context":
@@ -53,150 +45,6 @@
       { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
       { "key": "preceding_text", "operator": "regex_contains", "operand": "\\($", "match_all": true },
       { "key": "following_text", "operator": "regex_contains", "operand": "^\\)", "match_all": true }
-    ]
-  },
-
-  // The rest of this file simple re-enables the other non-parentheses matching that was
-  // turned off by setting "auto_match_enabled" to false.
-
-  // Auto-pair quotes
-  { "keys": ["\""], "command": "insert_snippet", "args": {"contents": "\"$0\""}, "context":
-    [
-      { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-      { "key": "following_text", "operator": "regex_contains", "operand": "^(?:\t| |\\)|]|\\}|>|$)", "match_all": true },
-      { "key": "preceding_text", "operator": "not_regex_contains", "operand": "[\"a-zA-Z0-9_]$", "match_all": true },
-      { "key": "eol_selector", "operator": "not_equal", "operand": "string.quoted.double", "match_all": true }
-    ]
-  },
-  { "keys": ["\""], "command": "insert_snippet", "args": {"contents": "\"${0:$SELECTION}\""}, "context":
-    [
-      { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": false, "match_all": true }
-    ]
-  },
-  { "keys": ["\""], "command": "move", "args": {"by": "characters", "forward": true}, "context":
-    [
-      { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-      { "key": "following_text", "operator": "regex_contains", "operand": "^\"", "match_all": true }
-    ]
-  },
-  { "keys": ["backspace"], "command": "run_macro_file", "args": {"file": "Packages/Default/Delete Left Right.sublime-macro"}, "context":
-    [
-      { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-      { "key": "preceding_text", "operator": "regex_contains", "operand": "\"$", "match_all": true },
-      { "key": "following_text", "operator": "regex_contains", "operand": "^\"", "match_all": true }
-    ]
-  },
-
-  // Auto-pair single quotes
-  { "keys": ["'"], "command": "insert_snippet", "args": {"contents": "'$0'"}, "context":
-    [
-      { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-      { "key": "following_text", "operator": "regex_contains", "operand": "^(?:\t| |\\)|]|\\}|>|$)", "match_all": true },
-      { "key": "preceding_text", "operator": "not_regex_contains", "operand": "['a-zA-Z0-9_]$", "match_all": true },
-      { "key": "eol_selector", "operator": "not_equal", "operand": "string.quoted.single", "match_all": true }
-    ]
-  },
-  { "keys": ["'"], "command": "insert_snippet", "args": {"contents": "'${0:$SELECTION}'"}, "context":
-    [
-      { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": false, "match_all": true }
-    ]
-  },
-  { "keys": ["'"], "command": "move", "args": {"by": "characters", "forward": true}, "context":
-    [
-      { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-      { "key": "following_text", "operator": "regex_contains", "operand": "^'", "match_all": true }
-    ]
-  },
-  { "keys": ["backspace"], "command": "run_macro_file", "args": {"file": "Packages/Default/Delete Left Right.sublime-macro"}, "context":
-    [
-      { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-      { "key": "preceding_text", "operator": "regex_contains", "operand": "'$", "match_all": true },
-      { "key": "following_text", "operator": "regex_contains", "operand": "^'", "match_all": true }
-    ]
-  },
-
-  // Auto-pair square brackets
-  { "keys": ["["], "command": "insert_snippet", "args": {"contents": "[$0]"}, "context":
-    [
-      { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-      { "key": "following_text", "operator": "regex_contains", "operand": "^(?:\t| |\\)|]|;|\\}|$)", "match_all": true }
-    ]
-  },
-  { "keys": ["["], "command": "insert_snippet", "args": {"contents": "[${0:$SELECTION}]"}, "context":
-    [
-      { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": false, "match_all": true }
-    ]
-  },
-  { "keys": ["]"], "command": "move", "args": {"by": "characters", "forward": true}, "context":
-    [
-      { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-      { "key": "following_text", "operator": "regex_contains", "operand": "^\\]", "match_all": true }
-    ]
-  },
-  { "keys": ["backspace"], "command": "run_macro_file", "args": {"file": "Packages/Default/Delete Left Right.sublime-macro"}, "context":
-    [
-      { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-      { "key": "preceding_text", "operator": "regex_contains", "operand": "\\[$", "match_all": true },
-      { "key": "following_text", "operator": "regex_contains", "operand": "^\\]", "match_all": true }
-    ]
-  },
-
-  // Auto-pair curly brackets
-  { "keys": ["{"], "command": "insert_snippet", "args": {"contents": "{$0}"}, "context":
-    [
-      { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-      { "key": "following_text", "operator": "regex_contains", "operand": "^(?:\t| |\\)|]|\\}|$)", "match_all": true }
-    ]
-  },
-  { "keys": ["{"], "command": "insert_snippet", "args": {"contents": "{${0:$SELECTION}}"}, "context":
-    [
-      { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": false, "match_all": true }
-    ]
-  },
-  { "keys": ["}"], "command": "move", "args": {"by": "characters", "forward": true}, "context":
-    [
-      { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-      { "key": "following_text", "operator": "regex_contains", "operand": "^\\}", "match_all": true }
-    ]
-  },
-  { "keys": ["backspace"], "command": "run_macro_file", "args": {"file": "Packages/Default/Delete Left Right.sublime-macro"}, "context":
-    [
-      { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-      { "key": "preceding_text", "operator": "regex_contains", "operand": "\\{$", "match_all": true },
-      { "key": "following_text", "operator": "regex_contains", "operand": "^\\}", "match_all": true }
-    ]
-  },
-
-  { "keys": ["enter"], "command": "run_macro_file", "args": {"file": "Packages/Default/Add Line in Braces.sublime-macro"}, "context":
-    [
-      { "key": "setting.auto_indent", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-      { "key": "preceding_text", "operator": "regex_contains", "operand": "\\{$", "match_all": true },
-      { "key": "following_text", "operator": "regex_contains", "operand": "^\\}", "match_all": true }
-    ]
-  },
-  { "keys": ["shift+enter"], "command": "run_macro_file", "args": {"file": "Packages/Default/Add Line in Braces.sublime-macro"}, "context":
-    [
-      { "key": "setting.auto_indent", "operator": "equal", "operand": true },
-      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-      { "key": "preceding_text", "operator": "regex_contains", "operand": "\\{$", "match_all": true },
-      { "key": "following_text", "operator": "regex_contains", "operand": "^\\}", "match_all": true }
     ]
   }
 ]
