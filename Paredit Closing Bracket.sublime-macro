@@ -1,0 +1,4 @@
+[
+  {"command": "paredit_status", "args": {"text": "Not inside a list."}},
+  {"command": "stop"}
+]
