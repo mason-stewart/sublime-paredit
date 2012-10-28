@@ -1,0 +1,4 @@
+[
+  {"command": "paredit_status", "args": {"text": "Can't delete matched opening bracket with content."}},
+  {"command": "stop"}
+]
