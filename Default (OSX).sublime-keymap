@@ -30,7 +30,7 @@
     ]
   },
   // Don't allow deletion of closing brackets with content
-  { "keys": ["backspace"], "command": "run_macro_file", "args": {"file": "Packages/sublime-scheme-syntax/Paredit Delete Closing Bracket.sublime-macro"}, "context":
+  { "keys": ["backspace"], "command": "run_macro_file", "args": {"file": "Packages/sublime-paredit/Paredit Delete Closing Bracket.sublime-macro"}, "context":
     [
       { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
       { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
@@ -39,7 +39,7 @@
     ]
   },
   // Don't allow deletion of opening brackets with content
-  { "keys": ["backspace"], "command": "run_macro_file", "args": {"file": "Packages/sublime-scheme-syntax/Paredit Delete Opening Bracket.sublime-macro"}, "context":
+  { "keys": ["backspace"], "command": "run_macro_file", "args": {"file": "Packages/sublime-paredit/Paredit Delete Opening Bracket.sublime-macro"}, "context":
     [
       { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
       { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
