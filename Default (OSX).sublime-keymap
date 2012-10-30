@@ -15,7 +15,7 @@
     ]
   },
   // Basically, just don't allow closing bracket to be entered by themselves.
-  { "keys": [")"], "command": "run_macro_file", "args": {"file": "Packages/sublime-paredit/Paredit Closing Bracket.sublime-macro"}},
+  { "keys": [")"], "command": "run_macro_file", "args": {"file": "Packages/sublime-paredit/Paredit Closing Bracket.sublime-macro_"}},
 
   // Do allow closing brackets to do the "skip over".
   { "keys": [")"], "command": "move", "args": {"by": "characters", "forward": true}, "context":
@@ -27,7 +27,7 @@
   },
 
   // Don't allow deletion of closing brackets with content
-  { "keys": ["backspace"], "command": "run_macro_file", "args": {"file": "Packages/sublime-paredit/Paredit Delete Closing Bracket.sublime-macro"}, "context":
+  { "keys": ["backspace"], "command": "run_macro_file", "args": {"file": "Packages/sublime-paredit/Paredit Delete Closing Bracket.sublime-macro_"}, "context":
     [
       { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
       { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
@@ -36,7 +36,7 @@
     ]
   },
   // Don't allow deletion of opening brackets with content
-  { "keys": ["backspace"], "command": "run_macro_file", "args": {"file": "Packages/sublime-paredit/Paredit Delete Opening Bracket.sublime-macro"}, "context":
+  { "keys": ["backspace"], "command": "run_macro_file", "args": {"file": "Packages/sublime-paredit/Paredit Delete Opening Bracket.sublime-macro_"}, "context":
     [
       { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
       { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
@@ -45,7 +45,7 @@
     ]
   },
   // Delete a set of empty brackets if cursor is to the right of closing bracket.
-  { "keys": ["backspace"], "command": "run_macro_file", "args": {"file": "Packages/sublime-paredit/Paredit Delete Left Left.sublime-macro"}, "context":
+  { "keys": ["backspace"], "command": "run_macro_file", "args": {"file": "Packages/sublime-paredit/Paredit Delete Left Left.sublime-macro_"}, "context":
     [
       { "key": "setting.paredit_enabled", "operator": "equal", "operand": true },
       { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
