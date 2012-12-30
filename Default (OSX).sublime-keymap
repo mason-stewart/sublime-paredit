@@ -64,4 +64,5 @@
   },
 
   { "keys": ["super+shift+0"], "command": "paredit_push_bracket" }
+
 ]
