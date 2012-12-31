@@ -14,11 +14,12 @@ class PareditPushBracketCommand(sublime_plugin.TextCommand):
       # Set these two variables to prevent first_closing
       # being set more than once
       first_closing = None
+      first_opening = None
       first = True
 
       # A recursive function for finding first_closing and
       # next_closing
-      def search(openings, pos, first_closing, first):
+      def search(openings, pos, first_opening, first_closing, first):
         print "running search("+str(pos)+")"
 
         # Just in case the plugin gets confused and stuck in a loop.
@@ -44,6 +45,10 @@ class PareditPushBracketCommand(sublime_plugin.TextCommand):
             # Set the position to just after the next opening, as it's nearer the cursor
             pos = next_opening.begin()+1
             print 'found an opening. increased openings to '+str(openings)
+
+            # Mark the first_opening for indentation purposes
+            if (first_opening == None):
+              first_opening = next_opening
 
           # Otherwise...
           else:
@@ -93,21 +98,68 @@ class PareditPushBracketCommand(sublime_plugin.TextCommand):
           first_closing = next_closing
 
           # call search() again, but start with 0 openings each time after the first
-          openings, pos, first_closing, next_closing, first = search(0, pos, first_closing, first)
+          openings, pos, first_closing, next_closing, next_opening, first_opening, first = search(0, pos, first_opening, first_closing, first)
 
-        return openings, pos, first_closing, next_closing, first
+        return openings, pos, first_closing, next_closing, next_opening, first_opening, first
 
       # call seach() for the first time, and assume that there is already one opening,
       # which is the one you're inside.
-      openings, pos, first_closing, next_closing, first = search(1, pos, first_closing, first)
+      openings, pos, first_closing, next_closing, next_opening, first_opening, first = search(1, pos, first_opening, first_closing, first)
 
       print "\n \nfirst_closing is "+ str(first_closing)
-      print "so next_closing is"+ str(next_closing)
+      print "next_closing is"+ str(next_closing)
+
+      # print "self.view.rowcol( self.view.find('\(', first_opening.begin()).begin() )[1] is "+str(self.view.rowcol( self.view.find('\(', first_opening.begin()).begin() )[1])
+
+
 
       # As long as first_closing and next_closing aren't None,
       # go ahead and erase and insert them, respectively
       if (first_closing != None) and (next_closing != None):
+
+        # Go ahead and calculate the line numbers for indention
+        first_opening_row = self.view.rowcol(first_opening.begin())
+        next_closing_row = self.view.rowcol(next_closing.begin())
+
+        # erase/insert
         self.view.erase(edit, first_closing)
         self.view.insert(edit, next_closing.begin(), ')')
+
+        # After erasing/inserting, add indentation if the next_closing
+        # is on a different line that the first_opening
+        if first_opening_row[0] < next_closing_row[0]:
+          start_indent_at = self.view.line(first_opening).end()+1
+          # print 'start_indent_at is '+str(start_indent_at)
+
+          end_indent_at = self.view.rowcol(self.view.find('\(', first_opening.begin()).begin())[1]
+          print 'end_indent_at is '+str(end_indent_at)
+
+          end_delete_at = self.view.find('\S' ,start_indent_at).begin() - start_indent_at
+          # print 'end_delete_at is '+str(end_delete_at)
+
+          lines = self.view.lines(sublime.Region(first_opening.begin(),next_closing.begin()))[1:]
+          # print 'lines '+str(lines)+' are affected'
+
+          # print 'next_opening is '+str(next_opening)
+
+          # Iterate through a reversed array, otherwise chopping out bits messes
+          # indexing of the lines.
+          for line in reversed(lines):
+            line_number = self.view.rowcol(line.begin())[0]+1
+            line_whitespace = self.view.find('\S' ,line.begin()).begin() - line.begin()
+
+            print 'Line '+str(line_number)+ ' has '+str(line_whitespace)+ ' spaces at the front.'
+            if line_whitespace <= end_indent_at:
+              print 'inserting '+str(end_indent_at - (self.view.find('\S' ,line.begin()).begin() - line.begin()))+' spaces on line '+str(line_number)
+              self.view.insert(edit, line.begin(), ' '*(end_indent_at-1))
+
+            elif line.begin() != line.end():
+              erase_whitespace = line_whitespace - end_indent_at
+              print 'erasing '+ str(erase_whitespace) +' spaces from line '+str(line_number)
+              erase_region = sublime.Region(line.begin(), line.begin() + (line_whitespace - end_indent_at))
+              self.view.erase(edit, erase_region)
+
+            # self.view.replace(edit, sublime.Region(line.begin(), line.begin() + end_delete_at), 'hey guys')
+
       else:
         print 'Nothing to move.'
