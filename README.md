@@ -7,12 +7,16 @@ This is a simple plugin, very much in beta, that attempts to emulate Emacs' Pare
 ...
 
 ## Usage
-Once the package is installed, you'll see Paredit Mode under the Tools Menu. When toggled, parentheses will *always* close. In otherwords,
+Once the package is installed, you'll see Paredit Mode under the Tools Menu. 
+
+![](http://f.cl.ly/items/3N3g0a140k2F2Y302Q34/1o.png)
+
+When toggled, parentheses will *always* close. In otherwords,
 * Whenever you type `(`, a `)` will automatically be inserted after it, or after the selected text.
 * You can't delete the opening or closing parenthesis of a matched set that contains anything other than nothing, or whitespace.
 * You *can* force delete any parenthesis with `shift+delete`.
 
-Also, when inside of a matched set, pressing `cmd+)` (a.k.a. `cmd+shift+0`) will emulate Emacs and "push" the matched closing bracket beyond the next matched set on the same nesting level. Using this hotkey would turn this
+Also, when inside of a matched set, pressing `cmd + )` (a.k.a. `cmd + shift + 0`) will emulate Emacs and "push" the matched closing bracket beyond the next matched set on the same nesting level. Using this hotkey would turn this
 
 ```scheme
 (foo)(bar (baz))
