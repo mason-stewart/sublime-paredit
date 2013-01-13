@@ -3,8 +3,28 @@
     "id": "tools",
     "children":
     [
-      { "caption": "-" },
-      { "command": "toggle_setting", "args": {"setting": "paredit_enabled"}, "caption": "Paredit Mode", "checkbox": true }
+      {
+        "caption": "Paredit",
+        "mnemonic": "p",
+        "id": "Paredit",
+        "children":
+        [
+          {
+            "command": "toggle_setting",
+            "args": {"setting": "paredit_enabled"},
+            "caption": "Paredit Mode",
+            "checkbox": true
+          },
+          { "caption": "-" },
+          {
+            "command": "toggle_setting",
+            "args": {"setting": "paredit_dont_match_single_quotes"},
+            "caption": "Don't match single quotes",
+            "checkbox": true
+          }
+        ]
+      },
+      { "caption": "-" }
     ]
   }
 ]
