@@ -63,6 +63,14 @@
     ]
   },
 
-  { "keys": ["super+shift+0"], "command": "paredit_push_bracket" }
+  // Key binding for push bracket
+  { "keys": ["super+shift+0"], "command": "paredit_push_bracket" },
+
+  // Override auto_match_enabled's single quote matching
+  { "keys": ["'"], "command": "insert_snippet", "args": {"contents": "'$0"}, "context":
+    [
+      { "key": "setting.paredit_dont_match_single_quotes", "operator": "equal", "operand": true }
+    ]
+  }
 
 ]
