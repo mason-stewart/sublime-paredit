@@ -15,7 +15,11 @@
     ]
   },
   // Basically, just don't allow closing bracket to be entered by themselves.
-  { "keys": [")"], "command": "run_macro_file", "args": {"file": "Packages/sublime-paredit/Paredit Closing Bracket.sublime-macro_"}},
+  { "keys": [")"], "command": "run_macro_file", "args": {"file": "Packages/sublime-paredit/Paredit Closing Bracket.sublime-macro_"}, "context":
+    [
+      { "key": "setting.paredit_enabled", "operator": "equal", "operand": true }
+    ]
+  },
 
   // Do allow closing brackets to do the "skip over".
   { "keys": [")"], "command": "move", "args": {"by": "characters", "forward": true}, "context":
