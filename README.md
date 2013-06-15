@@ -1,5 +1,7 @@
-# Paredit mode for Sublime Text 2!
-## An Emacs-style Paredit mode that gets strict about closing parentheses and helps you nest parentheses
+# Hey, this repo is no longer maintained. There's a wayyy better Sublime Paredit here: [https://github.com/odyssomay/paredit](https://github.com/odyssomay/paredit). Thanks!
+
+## Paredit mode for Sublime Text 2!
+### An Emacs-style Paredit mode that gets strict about closing parentheses and helps you nest parentheses
 
 This is a simple plugin, very much in beta, that attempts to emulate Emacs' Paredit, which enforces matched parentheses, among other things. While Sublime has default bracket matching, it's not strict about it. The goal is make writing Lisp variants (like Clojure, Scheme, Common Lisp, etc.) not so awful in Sublime.
 
